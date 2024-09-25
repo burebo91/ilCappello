@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Meta tag per la thumbnail e la web app -->
-    <link rel="icon" href="cappello.png" type="image/PNG">
+    <link rel="icon" href="cappello.png" type="image/png">
     <link rel="apple-touch-icon" href="cappelloMobile.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#ffffff">
@@ -22,7 +22,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
 
     <style>
-        /* Stili di base */
+        /* Stili di base (Modalità Chiara) */
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', Roboto, Arial, sans-serif;
             margin: 0;
@@ -35,7 +35,7 @@
             margin-top: 20px;
             font-weight: 600;
             font-size: 2em;
-            margin-left: 20px; /* Aggiunto margine a sinistra */
+            margin-left: 20px; /* Margine a sinistra */
         }
 
         /* Contenitore principale */
@@ -44,8 +44,8 @@
             max-width: 500px;
             margin: 0 auto;
             padding: 20px;
-            margin-left: 20px; /* Aumentato margine sinistro */
-            margin-right: 20px; /* Aumentato margine destro */
+            margin-left: 20px; /* Margine sinistro */
+            margin-right: 20px; /* Margine destro */
         }
 
         /* Immagine del cappello */
@@ -117,8 +117,8 @@
         .controls {
             margin-top: 20px;
             font-size: 1em;
-            margin-left: 20px; /* Aumentato margine sinistro */
-            margin-right: 20px; /* Aumentato margine destro */
+            margin-left: 20px; /* Margine sinistro */
+            margin-right: 20px; /* Margine destro */
         }
 
         select, button {
@@ -147,8 +147,8 @@
         #history {
             margin-top: 30px;
             max-width: 600px;
-            margin-left: 20px; /* Aumentato margine sinistro */
-            margin-right: 20px; /* Aumentato margine destro */
+            margin-left: 20px; /* Margine sinistro */
+            margin-right: 20px; /* Margine destro */
             text-align: left; /* Allineamento a sinistra */
         }
 
@@ -176,22 +176,73 @@
             }
             .container {
                 padding: 10px;
-                margin-left: 10px; /* Ridotto margine per schermi piccoli */
+                margin-left: 10px; /* Margine per schermi piccoli */
                 margin-right: 10px;
             }
             .controls {
-                margin-left: 10px; /* Ridotto margine per schermi piccoli */
+                margin-left: 10px; /* Margine per schermi piccoli */
                 margin-right: 10px;
             }
             #history {
-                margin-left: 10px; /* Ridotto margine per schermi piccoli */
+                margin-left: 10px; /* Margine per schermi piccoli */
                 margin-right: 10px;
+            }
+        }
+
+        /* Modalità Scura */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212; /* Sfondo scuro */
+                color: #ffffff; /* Testo bianco */
+            }
+
+            h1 {
+                color: #ffffff;
+            }
+
+            /* Immagine del cappello */
+            #hat {
+                filter: brightness(0.8);
+            }
+
+            /* Bigliettino */
+            #ticket {
+                background-image: url('bigliettino_dark.jpg'); /* Immagine per la modalità scura */
+            }
+
+            #ticket h2 {
+                color: #ffffff;
+            }
+
+            /* Bottoni e selettori */
+            select, button {
+                background-color: #1f1f1f;
+                color: #ffffff;
+                border: 1px solid #333333;
+            }
+
+            button {
+                background-color: #0a84ff; /* Colore per la modalità scura */
+            }
+
+            button:hover {
+                background-color: #005bb5;
+            }
+
+            /* Storico delle estrazioni */
+            #history h2 {
+                color: #ffffff;
+            }
+
+            #history li {
+                border-bottom: 1px solid #333333;
+                color: #cccccc;
             }
         }
     </style>
 </head>
 <body>
-    <h1>EL CAPPELLOS</h1>
+    <h1>IL CAPPELLO</h1>
 
     <div class="container">
         <img id="hat" src="cappello.png" alt="Cappello" onclick="draw()">
@@ -301,6 +352,30 @@
             listItem.textContent = `[${timeString}] ${result}`;
             historyList.insertBefore(listItem, historyList.firstChild);
         }
+
+        // Funzione per impostare le immagini in base alla modalità
+        function setThemeImages() {
+            const ticket = document.getElementById('ticket');
+            const darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (darkMode) {
+                // Cambia l'immagine del bigliettino per la modalità scura
+                ticket.style.backgroundImage = "url('bigliettino_dark.jpg')";
+            } else {
+                // Usa l'immagine standard per la modalità chiara
+                ticket.style.backgroundImage = "url('bigliettino.jpg')";
+            }
+        }
+
+        // Chiamare la funzione al caricamento della pagina
+        window.onload = function() {
+            setThemeImages();
+        };
+
+        // Aggiungere un listener per i cambiamenti nelle preferenze del sistema
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            setThemeImages();
+        });
     </script>
 </body>
 </html>
