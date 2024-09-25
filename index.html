@@ -5,24 +5,9 @@
     <title>IL CAPPELLO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Meta tag per la thumbnail e la web app -->
-    <link rel="icon" href="cappello.png" type="image/png">
-    <link rel="apple-touch-icon" href="cappelloMobile.png">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#ffffff">
-
-    <!-- Manifest per la web app -->
-    <link rel="manifest" href="manifest.json">
-
-    <!-- Importa font per stile moderno e scritto a mano -->
-    <!-- Font moderni -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Font scritto a mano -->
-    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
-
+    <!-- Stili CSS -->
     <style>
-        /* Il tuo CSS esistente */
+        /* Inserisci qui il tuo CSS */
         /* ... */
     </style>
 </head>
@@ -51,7 +36,6 @@
             <img id="hat" src="cappello.png" alt="Cappello" onclick="draw()">
             <div id="ticket">
                 <h2 id="result"></h2>
-                <!-- Pulsante "Nuova estrazione" rimosso -->
             </div>
         </div>
 
@@ -61,7 +45,6 @@
                 <option value="names">Nomi</option>
                 <option value="yesno">Sì o No</option>
             </select>
-            <!-- Pulsante per effettuare l'estrazione -->
             <button onclick="draw()">Estrai</button>
         </div>
 
@@ -73,22 +56,20 @@
         </div>
     </div>
 
-    <!-- Firebase App (the core Firebase SDK) -->
+    <!-- Includi gli SDK di Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
-
-    <!-- Firebase Firestore SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
 
+    <!-- Inizializza Firebase -->
     <script>
-        // La tua configurazione Firebase
         const firebaseConfig = {
-          apiKey: "AIzaSyDo1rCk1GQt0YOp_XMB1fx3o3b-5FuC5oU",
-          authDomain: "ilcappello.firebaseapp.com",
-          projectId: "ilcappello",
-          storageBucket: "ilcappello.appspot.com",
-          messagingSenderId: "868385193610",
-          appId: "1:868385193610:web:5c7168fa39efd4eba2b773",
-          measurementId: "G-XYJ79F19Q8"
+            apiKey: "AIzaSyDo1rCk1GQt0YOp_XMB1fx3o3b-5FuC5oU",
+            authDomain: "ilcappello.firebaseapp.com",
+            projectId: "ilcappello",
+            storageBucket: "ilcappello.appspot.com",
+            messagingSenderId: "868385193610",
+            appId: "1:868385193610:web:5c7168fa39efd4eba2b773",
+            measurementId: "G-XYJ79F19Q8"
         };
 
         // Inizializza Firebase
@@ -96,7 +77,11 @@
 
         // Inizializza Firestore
         const db = firebase.firestore();
+    </script>
 
+    <!-- Il tuo codice JavaScript -->
+    <script>
+        // Il resto del tuo codice JavaScript
         let currentUser = null;
 
         function login() {
@@ -104,11 +89,9 @@
             currentUser = userSelect.value;
 
             if (currentUser) {
-                // Nascondi la schermata di login e mostra l'app
                 document.getElementById('login').style.display = 'none';
                 document.getElementById('app').style.display = 'block';
 
-                // Carica lo storico condiviso
                 loadHistory();
             } else {
                 alert('Per favore, seleziona un utente.');
@@ -171,6 +154,11 @@
         }
 
         function saveResultToFirestore(result) {
+            if (!currentUser) {
+                alert('Devi effettuare il login prima di procedere.');
+                return;
+            }
+
             db.collection('history').add({
                 user: currentUser,
                 result: result,
