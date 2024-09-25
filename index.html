@@ -22,254 +22,99 @@
     <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
 
     <style>
-        /* Stili di base (Modalità Chiara) */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', Roboto, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff; /* Sfondo bianco */
-            color: #000000; /* Testo nero */
-        }
-
-        h1 {
-            margin-top: 20px;
-            font-weight: 600;
-            font-size: 2em;
-            margin-left: 20px; /* Margine a sinistra */
-        }
-
-        /* Contenitore principale */
-        .container {
-            position: relative;
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 20px;
-            margin-left: 20px; /* Margine sinistro */
-            margin-right: 20px; /* Margine destro */
-        }
-
-        /* Immagine del cappello */
-        #hat {
-            width: 80%;
-            max-width: 300px;
-            cursor: pointer;
-            transition: transform 0.2s;
-            display: block;
-            margin: 0 auto;
-        }
-
-        /* Animazioni del cappello */
-        #hat.shake {
-            animation: shake 0.5s;
-        }
-
-        #hat.flip {
-            animation: flip 0.5s forwards;
-        }
-
-        @keyframes shake {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(10deg); }
-            50% { transform: rotate(-10deg); }
-            75% { transform: rotate(10deg); }
-            100% { transform: rotate(0deg); }
-        }
-
-        @keyframes flip {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(180deg); }
-        }
-
-        /* Bigliettino appallottolato */
-        #ticket {
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            width: 100px;
-            height: 100px;
-            background-image: url('bigliettino.jpg');
-            background-size: cover;
-            background-position: center;
-            opacity: 0;
-            transition: transform 0.5s, opacity 0.5s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #ticket.open {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-        }
-
-        /* Testo sul bigliettino */
-        #ticket h2 {
-            font-family: 'Shadows Into Light', cursive;
-            font-size: 1.5em;
-            margin: 0;
-            color: #000;
-            text-align: left; /* Allineamento a sinistra */
-            padding: 10px;
-        }
-
-        /* Bottoni e selettori */
-        .controls {
-            margin-top: 20px;
-            font-size: 1em;
-            margin-left: 20px; /* Margine sinistro */
-            margin-right: 20px; /* Margine destro */
-        }
-
-        select, button {
-            padding: 10px;
-            font-size: 1em;
-            margin: 5px;
-            border: 1px solid #ccc;
-            border-radius: 12px;
-            background-color: #f2f2f2;
-            color: #000;
-            outline: none;
-        }
-
-        button {
-            background-color: #007AFF; /* Colore azzurro Apple */
-            color: #fff;
-            cursor: pointer;
-            border: none;
-        }
-
-        button:hover {
-            background-color: #005bb5;
-        }
-
-        /* Storico delle estrazioni */
-        #history {
-            margin-top: 30px;
-            max-width: 600px;
-            margin-left: 20px; /* Margine sinistro */
-            margin-right: 20px; /* Margine destro */
-            text-align: left; /* Allineamento a sinistra */
-        }
-
-        #history h2 {
-            font-weight: 600;
-            margin-left: 0; /* Allineamento a sinistra */
-        }
-
-        #history ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        #history li {
-            padding: 5px 0;
-            border-bottom: 1px solid #e0e0e0;
-            font-size: 0.9em;
-            color: #555;
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 600px) {
-            #hat {
-                width: 100%;
-            }
-            .container {
-                padding: 10px;
-                margin-left: 10px; /* Margine per schermi piccoli */
-                margin-right: 10px;
-            }
-            .controls {
-                margin-left: 10px; /* Margine per schermi piccoli */
-                margin-right: 10px;
-            }
-            #history {
-                margin-left: 10px; /* Margine per schermi piccoli */
-                margin-right: 10px;
-            }
-        }
-
-        /* Modalità Scura */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #121212; /* Sfondo scuro */
-                color: #ffffff; /* Testo bianco */
-            }
-
-            h1 {
-                color: #ffffff;
-            }
-
-            /* Immagine del cappello */
-            #hat {
-                filter: brightness(0.8);
-            }
-
-            /* Bigliettino */
-            #ticket {
-                background-image: url('bigliettino_dark.jpg'); /* Immagine per la modalità scura */
-            }
-
-            #ticket h2 {
-                color: #ffffff;
-            }
-
-            /* Bottoni e selettori */
-            select, button {
-                background-color: #1f1f1f;
-                color: #ffffff;
-                border: 1px solid #333333;
-            }
-
-            button {
-                background-color: #0a84ff; /* Colore per la modalità scura */
-            }
-
-            button:hover {
-                background-color: #005bb5;
-            }
-
-            /* Storico delle estrazioni */
-            #history h2 {
-                color: #ffffff;
-            }
-
-            #history li {
-                border-bottom: 1px solid #333333;
-                color: #cccccc;
-            }
-        }
+        /* Il tuo CSS esistente */
+        /* ... */
     </style>
 </head>
 <body>
-    <h1>IL CAPPELLO</h1>
+    <!-- Schermata di login -->
+    <div id="login">
+        <h2>Seleziona il tuo nome</h2>
+        <select id="userSelect">
+            <option value="">-- Seleziona un utente --</option>
+            <option value="Alex">Alex</option>
+            <option value="Polly">Polly</option>
+            <option value="Cristy">Cristy</option>
+            <option value="Chuck">Chuck</option>
+            <option value="Manny">Manny</option>
+            <option value="Il Biondo">Il Biondo</option>
+            <option value="Bencio">Bencio</option>
+        </select>
+        <button onclick="login()">Accedi</button>
+    </div>
 
-    <div class="container">
-        <img id="hat" src="cappello.png" alt="Cappello" onclick="draw()">
-        <div id="ticket">
-            <h2 id="result"></h2>
-            <!-- Pulsante "Nuova estrazione" rimosso -->
+    <!-- Contenuto dell'applicazione -->
+    <div id="app" style="display: none;">
+        <h1>IL CAPPELLO</h1>
+
+        <div class="container">
+            <img id="hat" src="cappello.png" alt="Cappello" onclick="draw()">
+            <div id="ticket">
+                <h2 id="result"></h2>
+                <!-- Pulsante "Nuova estrazione" rimosso -->
+            </div>
+        </div>
+
+        <div class="controls">
+            <label for="mode">Scegli la modalità:</label>
+            <select id="mode">
+                <option value="names">Nomi</option>
+                <option value="yesno">Sì o No</option>
+            </select>
+            <!-- Pulsante per effettuare l'estrazione -->
+            <button onclick="draw()">Estrai</button>
+        </div>
+
+        <div id="history">
+            <h2>Storico delle Estrazioni</h2>
+            <ul id="historyList">
+                <!-- Gli elementi della cronologia verranno aggiunti qui -->
+            </ul>
         </div>
     </div>
 
-    <div class="controls">
-        <label for="mode">Scegli la modalità:</label>
-        <select id="mode">
-            <option value="names">Nomi</option>
-            <option value="yesno">Sì o No</option>
-        </select>
-        <!-- Pulsante per effettuare l'estrazione -->
-        <button onclick="draw()">Estrai</button>
-    </div>
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
 
-    <div id="history">
-        <h2>Storico delle Estrazioni</h2>
-        <ul id="historyList">
-            <!-- Gli elementi della cronologia verranno aggiunti qui -->
-        </ul>
-    </div>
+    <!-- Firebase Firestore SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-firestore-compat.js"></script>
 
     <script>
+        // La tua configurazione Firebase
+        const firebaseConfig = {
+          apiKey: "AIzaSyDo1rCk1GQt0YOp_XMB1fx3o3b-5FuC5oU",
+          authDomain: "ilcappello.firebaseapp.com",
+          projectId: "ilcappello",
+          storageBucket: "ilcappello.appspot.com",
+          messagingSenderId: "868385193610",
+          appId: "1:868385193610:web:5c7168fa39efd4eba2b773",
+          measurementId: "G-XYJ79F19Q8"
+        };
+
+        // Inizializza Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Inizializza Firestore
+        const db = firebase.firestore();
+
+        let currentUser = null;
+
+        function login() {
+            const userSelect = document.getElementById('userSelect');
+            currentUser = userSelect.value;
+
+            if (currentUser) {
+                // Nascondi la schermata di login e mostra l'app
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('app').style.display = 'block';
+
+                // Carica lo storico condiviso
+                loadHistory();
+            } else {
+                alert('Per favore, seleziona un utente.');
+            }
+        }
+
         const defaultNames = [
             "Alex",
             "Polly",
@@ -318,11 +163,70 @@
                         const result = options[randomIndex];
                         resultElement.innerText = result;
 
-                        // Aggiungi il risultato allo storico
-                        addToHistory(result);
+                        // Salva il risultato su Firestore
+                        saveResultToFirestore(result);
                     }, 500); // Tempo per il bigliettino di aprirsi
                 }, 500); // Tempo del flip
             }, 500); // Tempo dello shake
+        }
+
+        function saveResultToFirestore(result) {
+            db.collection('history').add({
+                user: currentUser,
+                result: result,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            })
+            .then((docRef) => {
+                console.log('Risultato salvato con ID: ', docRef.id);
+            })
+            .catch((error) => {
+                console.error('Errore nel salvare il risultato: ', error);
+            });
+        }
+
+        function loadHistory() {
+            db.collection('history').orderBy('timestamp', 'desc')
+                .onSnapshot((querySnapshot) => {
+                    const historyList = document.getElementById('historyList');
+                    historyList.innerHTML = ''; // Svuota la lista corrente
+
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        const listItem = document.createElement('li');
+
+                        const timestamp = data.timestamp ? data.timestamp.toDate() : new Date();
+                        const timeString = timestamp.toLocaleString('it-IT');
+                        const user = data.user;
+                        const result = data.result;
+
+                        listItem.textContent = `[${timeString}] ${user} ha estratto: ${result}`;
+
+                        // Se l'utente è "Cristy", aggiungi un pulsante per eliminare
+                        if (currentUser === 'Cristy') {
+                            const deleteButton = document.createElement('button');
+                            deleteButton.textContent = 'Elimina';
+                            deleteButton.style.marginLeft = '10px';
+                            deleteButton.onclick = function() {
+                                deleteHistoryItem(doc.id);
+                            };
+                            listItem.appendChild(deleteButton);
+                        }
+
+                        historyList.appendChild(listItem);
+                    });
+                });
+        }
+
+        function deleteHistoryItem(id) {
+            if (confirm('Sei sicuro di voler eliminare questo elemento?')) {
+                db.collection('history').doc(id).delete()
+                    .then(() => {
+                        console.log('Elemento eliminato con successo');
+                    })
+                    .catch((error) => {
+                        console.error('Errore nell\'eliminare l\'elemento: ', error);
+                    });
+            }
         }
 
         function closeTicket() {
@@ -339,42 +243,6 @@
         // Nasconde il bigliettino quando si cambia modalità
         document.getElementById('mode').addEventListener('change', function() {
             closeTicket();
-        });
-
-        // Funzione per aggiungere il risultato allo storico
-        function addToHistory(result) {
-            const historyList = document.getElementById('historyList');
-            const listItem = document.createElement('li');
-
-            const now = new Date();
-            const timeString = now.toLocaleString('it-IT');
-
-            listItem.textContent = `[${timeString}] ${result}`;
-            historyList.insertBefore(listItem, historyList.firstChild);
-        }
-
-        // Funzione per impostare le immagini in base alla modalità
-        function setThemeImages() {
-            const ticket = document.getElementById('ticket');
-            const darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-            if (darkMode) {
-                // Cambia l'immagine del bigliettino per la modalità scura
-                ticket.style.backgroundImage = "url('bigliettino_dark.jpg')";
-            } else {
-                // Usa l'immagine standard per la modalità chiara
-                ticket.style.backgroundImage = "url('bigliettino.jpg')";
-            }
-        }
-
-        // Chiamare la funzione al caricamento della pagina
-        window.onload = function() {
-            setThemeImages();
-        };
-
-        // Aggiungere un listener per i cambiamenti nelle preferenze del sistema
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            setThemeImages();
         });
     </script>
 </body>
