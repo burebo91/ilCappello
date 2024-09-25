@@ -25,7 +25,6 @@
 
     <!-- Stili CSS -->
     <style>
-        /* (Il tuo CSS originale, ripristinato) */
         /* Stili di base */
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', Roboto, Arial, sans-serif;
@@ -331,6 +330,7 @@
             <select id="mode">
                 <option value="names">Nomi</option>
                 <option value="yesno">Sì o No</option>
+                <option value="estraiTutti">Estrai Tutti</option>
             </select>
             <button onclick="draw()">Estrai</button>
         </div>
@@ -396,7 +396,7 @@
             "Bencio"
         ];
 
-        function draw() {
+        async function draw() {
             const mode = document.getElementById('mode').value;
             let options = [];
 
@@ -404,6 +404,28 @@
                 options = defaultNames;
             } else if (mode === 'yesno') {
                 options = ['Sì', 'No'];
+            } else if (mode === 'estraiTutti') {
+                // Recupera i nomi già estratti in "Estrai Tutti"
+                try {
+                    const extractedNames = [];
+                    const querySnapshot = await db.collection('history')
+                        .where('mode', '==', 'estraiTutti')
+                        .get();
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        extractedNames.push(data.result);
+                    });
+                    // Calcola i nomi rimanenti
+                    options = defaultNames.filter(name => !extractedNames.includes(name));
+                    if (options.length === 0) {
+                        alert('Tutti i nomi sono stati estratti in modalità Estrai Tutti.');
+                        return;
+                    }
+                } catch (error) {
+                    console.error('Errore nel recuperare i nomi estratti:', error);
+                    alert('Errore nel recuperare i nomi estratti.');
+                    return;
+                }
             }
 
             const hat = document.getElementById('hat');
@@ -418,14 +440,13 @@
             // Animazione del cappello (shake)
             hat.classList.add('shake');
 
-            // Dopo l'animazione dello shake, il cappello si ribalta
+            // Dopo lo shake, il cappello si ribalta
             setTimeout(function() {
                 hat.classList.remove('shake');
                 hat.classList.add('flip');
 
-                // Dopo il flip, mostra il bigliettino appallottolato
+                // Dopo il flip, mostra il bigliettino
                 setTimeout(function() {
-                    // Bigliettino appare
                     ticket.classList.add('open');
 
                     // Dopo un breve ritardo, mostra il risultato
@@ -435,13 +456,13 @@
                         resultElement.innerText = result;
 
                         // Salva il risultato su Firestore
-                        saveResultToFirestore(result);
+                        saveResultToFirestore(result, mode);
                     }, 500); // Tempo per il bigliettino di aprirsi
                 }, 500); // Tempo del flip
             }, 500); // Tempo dello shake
         }
 
-        function saveResultToFirestore(result) {
+        function saveResultToFirestore(result, mode) {
             if (!currentUser) {
                 alert('Devi effettuare il login prima di procedere.');
                 return;
@@ -450,6 +471,7 @@
             db.collection('history').add({
                 user: currentUser,
                 result: result,
+                mode: mode, // Aggiungi la modalità qui
                 timestamp: firebase.firestore.FieldValue.serverTimestamp(),
             })
             .then((docRef) => {
@@ -474,8 +496,18 @@
                         const timeString = timestamp.toLocaleString('it-IT');
                         const user = data.user;
                         const result = data.result;
+                        const mode = data.mode ? data.mode : 'names';
 
-                        listItem.textContent = `[${timeString}] ${user} ha estratto: ${result}`;
+                        let modeText = '';
+                        if (mode === 'estraiTutti') {
+                            modeText = ' in modalità Estrai Tutti';
+                        } else if (mode === 'names') {
+                            modeText = ' in modalità Nomi';
+                        } else if (mode === 'yesno') {
+                            modeText = ' in modalità Sì o No';
+                        }
+
+                        listItem.textContent = `[${timeString}] ${user} ha estratto: ${result}${modeText}`;
 
                         // Se l'utente è "Cristy", aggiungi un pulsante per eliminare
                         if (currentUser === 'Cristy') {
@@ -489,6 +521,8 @@
 
                         historyList.appendChild(listItem);
                     });
+                }, (error) => {
+                    console.error('Errore nel caricamento dello storico:', error);
                 });
         }
 
@@ -534,7 +568,7 @@
             }
         }
 
-        // Aggiungere un listener per i cambiamenti nelle preferenze del sistema
+        // Listener per i cambiamenti nelle preferenze del sistema
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
             setThemeImages();
         });
