@@ -5,10 +5,294 @@
     <title>IL CAPPELLO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Meta tag per la thumbnail e la web app -->
+    <link rel="icon" href="cappello.png" type="image/png">
+    <link rel="apple-touch-icon" href="cappelloMobile.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Manifest per la web app -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Importa font per stile moderno e scritto a mano -->
+    <!-- Font moderni -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Font scritto a mano -->
+    <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" rel="stylesheet">
+
     <!-- Stili CSS -->
     <style>
-        /* Inserisci qui il tuo CSS */
-        /* ... */
+        /* Stili di base */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', Roboto, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff; /* Sfondo bianco */
+            color: #000000; /* Testo nero */
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-weight: 600;
+            font-size: 2em;
+            margin-left: 20px; /* Margine a sinistra */
+        }
+
+        /* Contenitore principale */
+        .container {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-left: 20px; /* Margine sinistro */
+            margin-right: 20px; /* Margine destro */
+        }
+
+        /* Immagine del cappello */
+        #hat {
+            width: 80%;
+            max-width: 300px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Animazioni del cappello */
+        #hat.shake {
+            animation: shake 0.5s;
+        }
+
+        #hat.flip {
+            animation: flip 0.5s forwards;
+        }
+
+        @keyframes shake {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            50% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        @keyframes flip {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(180deg); }
+        }
+
+        /* Bigliettino appallottolato */
+        #ticket {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 100px;
+            height: 100px;
+            background-image: url('bigliettino.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: transform 0.5s, opacity 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #ticket.open {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        /* Testo sul bigliettino */
+        #ticket h2 {
+            font-family: 'Shadows Into Light', cursive;
+            font-size: 1.5em;
+            margin: 0;
+            color: #000;
+            text-align: left; /* Allineamento a sinistra */
+            padding: 10px;
+        }
+
+        /* Bottoni e selettori */
+        .controls {
+            margin-top: 20px;
+            font-size: 1em;
+            margin-left: 20px; /* Margine sinistro */
+            margin-right: 20px; /* Margine destro */
+        }
+
+        select, button {
+            padding: 10px;
+            font-size: 1em;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            background-color: #f2f2f2;
+            color: #000;
+            outline: none;
+        }
+
+        button {
+            background-color: #007AFF; /* Colore azzurro Apple */
+            color: #fff;
+            cursor: pointer;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+        /* Storico delle estrazioni */
+        #history {
+            margin-top: 30px;
+            max-width: 600px;
+            margin-left: 20px; /* Margine sinistro */
+            margin-right: 20px; /* Margine destro */
+            text-align: left; /* Allineamento a sinistra */
+        }
+
+        #history h2 {
+            font-weight: 600;
+            margin-left: 0; /* Allineamento a sinistra */
+        }
+
+        #history ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #history li {
+            padding: 5px 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        /* Stile per il pulsante di eliminazione */
+        #history li button {
+            margin-left: 10px;
+            padding: 2px 5px;
+            font-size: 0.8em;
+            border-radius: 5px;
+            background-color: #ff3b30;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        #history li button:hover {
+            background-color: #c12722;
+        }
+
+        /* Schermata di login */
+        #login {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #login select, #login button {
+            padding: 10px;
+            font-size: 1em;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            background-color: #f2f2f2;
+            color: #000;
+            outline: none;
+        }
+
+        #login button {
+            background-color: #007AFF; /* Colore azzurro Apple */
+            color: #fff;
+            cursor: pointer;
+            border: none;
+        }
+
+        #login button:hover {
+            background-color: #005bb5;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            #hat {
+                width: 100%;
+            }
+            .container {
+                padding: 10px;
+                margin-left: 10px; /* Margine per schermi piccoli */
+                margin-right: 10px;
+            }
+            .controls {
+                margin-left: 10px; /* Margine per schermi piccoli */
+                margin-right: 10px;
+            }
+            #history {
+                margin-left: 10px; /* Margine per schermi piccoli */
+                margin-right: 10px;
+            }
+        }
+
+        /* Modalità Scura */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212; /* Sfondo scuro */
+                color: #ffffff; /* Testo bianco */
+            }
+
+            h1 {
+                color: #ffffff;
+            }
+
+            /* Immagine del cappello */
+            #hat {
+                filter: brightness(0.8);
+            }
+
+            /* Bigliettino */
+            #ticket {
+                background-image: url('bigliettino_dark.jpg'); /* Immagine per la modalità scura */
+            }
+
+            #ticket h2 {
+                color: #ffffff;
+            }
+
+            /* Bottoni e selettori */
+            select, button {
+                background-color: #1f1f1f;
+                color: #ffffff;
+                border: 1px solid #333333;
+            }
+
+            button {
+                background-color: #0a84ff; /* Colore per la modalità scura */
+            }
+
+            button:hover {
+                background-color: #005bb5;
+            }
+
+            /* Storico delle estrazioni */
+            #history h2 {
+                color: #ffffff;
+            }
+
+            #history li {
+                border-bottom: 1px solid #333333;
+                color: #cccccc;
+            }
+
+            /* Pulsante di eliminazione */
+            #history li button {
+                background-color: #ff453a;
+            }
+
+            #history li button:hover {
+                background-color: #c12722;
+            }
+        }
     </style>
 </head>
 <body>
@@ -81,7 +365,6 @@
 
     <!-- Il tuo codice JavaScript -->
     <script>
-        // Il resto del tuo codice JavaScript
         let currentUser = null;
 
         function login() {
@@ -93,6 +376,7 @@
                 document.getElementById('app').style.display = 'block';
 
                 loadHistory();
+                setThemeImages(); // Aggiorna le immagini in base al tema
             } else {
                 alert('Per favore, seleziona un utente.');
             }
@@ -193,7 +477,6 @@
                         if (currentUser === 'Cristy') {
                             const deleteButton = document.createElement('button');
                             deleteButton.textContent = 'Elimina';
-                            deleteButton.style.marginLeft = '10px';
                             deleteButton.onclick = function() {
                                 deleteHistoryItem(doc.id);
                             };
@@ -231,6 +514,25 @@
         // Nasconde il bigliettino quando si cambia modalità
         document.getElementById('mode').addEventListener('change', function() {
             closeTicket();
+        });
+
+        // Funzione per impostare le immagini in base alla modalità
+        function setThemeImages() {
+            const ticket = document.getElementById('ticket');
+            const darkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (darkMode) {
+                // Cambia l'immagine del bigliettino per la modalità scura
+                ticket.style.backgroundImage = "url('bigliettino_dark.jpg')";
+            } else {
+                // Usa l'immagine standard per la modalità chiara
+                ticket.style.backgroundImage = "url('bigliettino.jpg')";
+            }
+        }
+
+        // Aggiungere un listener per i cambiamenti nelle preferenze del sistema
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            setThemeImages();
         });
     </script>
 </body>
